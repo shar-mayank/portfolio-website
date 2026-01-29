@@ -37,10 +37,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-white px-4 pt-24 text-black selection:bg-black selection:text-white pb-32">
-      <main className="flex max-w-2xl flex-col items-center text-center">
+    <div className="flex min-h-screen flex-col items-center bg-white px-3 pt-16 text-black selection:bg-black selection:text-white pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden">
+      <main className="flex w-full max-w-2xl flex-col items-center text-center">
         {/* Profile Image */}
-        <div className="relative mb-2 h-48 w-48 grayscale filter sm:h-56 sm:w-56">
+        <div className="relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56">
           <Image
             src="/me.png" // User's photo
             alt="Profile"
@@ -52,23 +52,23 @@ export default function Home() {
         </div>
 
         {/* Hero Text */}
-        <h1 className="mb-4 text-6xl font-bold tracking-tight sm:text-7xl">
+        <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
           Aditya Patil
         </h1>
 
         {/* Phonetic Pronunciation (Aesthetic touch often found in minimal portfolios) */}
-        <div className="mb-8 flex items-center gap-2 text-sm text-gray-400">
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 sm:text-sm">
           <span>/əˈdɪtjə pɑːˈtiːl/</span>
           <span className="text-gray-300">•</span>
           <span>noun</span>
           <span className="text-gray-300">•</span>
-          <div className="flex items-center gap-1.5 min-w-[100px]">
-            <span className="tabular-nums">{time || "00:00:00"}</span>
-            <span className="text-xs uppercase tracking-wider">IST</span>
+          <div className="flex items-center gap-1.5 min-w-[90px] sm:min-w-[100px]">
+            <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
+            <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
           </div>
         </div>
 
-        <div className="mb-10 w-full space-y-4 text-left text-lg leading-relaxed text-gray-600 sm:text-xl">
+        <div className="mb-10 w-full space-y-4 text-left text-base leading-relaxed text-gray-600 sm:text-lg md:text-xl">
           <p>
             a full-stack developer and <span className="underline underline-offset-4">product builder</span> with deep experience across engineering, product strategy, and user-centric design.
           </p>
@@ -243,7 +243,7 @@ export default function Home() {
           <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
             Writings & Blogs
           </h2>
-          <p className="max-w-xl text-lg leading-relaxed text-gray-600">
+          <p className="w-full text-lg leading-relaxed text-gray-600">
             I host my thoughts on{" "}
             <a
               href="https://medium.com/@adityapatil24680"
@@ -289,12 +289,12 @@ export default function Home() {
             Thing about me
           </h2>
           <div className="space-y-6">
-            <p className="max-w-xl text-lg leading-relaxed text-gray-600">
+            <p className="w-full text-lg leading-relaxed text-gray-600">
               Beyond engineering and build systems, I find balance in the tactile and the thoughtful. Whether it&apos;s exploring the nuances of complex architectures or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
             </p>
 
             <div className="flex justify-center">
-              <div className="relative h-[350px] w-full max-w-sm grayscale hover:grayscale-0 transition-all duration-700" style={{ maskImage: "radial-gradient(circle, black 40%, transparent 95%)", WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 95%)" }}>
+              <div className="relative h-[250px] w-full max-w-sm grayscale hover:grayscale-0 transition-all duration-700 sm:h-[350px]" style={{ maskImage: "radial-gradient(circle, black 40%, transparent 95%)", WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 95%)" }}>
                 <Image
                   src="/casual.png"
                   alt="Casual photo"
@@ -304,7 +304,7 @@ export default function Home() {
               </div>
             </div>
 
-            <p className="max-w-xl text-lg leading-relaxed text-gray-600">
+            <p className="w-full text-lg leading-relaxed text-gray-600">
               I believe that the best products are built by people who have a diverse range of interests. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
             </p>
           </div>
@@ -339,7 +339,7 @@ export default function Home() {
       </main>
 
       {/* Glass Island Navbar */}
-      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-6 rounded-full border border-gray-200 bg-white/70 px-6 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90">
+      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 sm:gap-6 sm:px-6">
         <a
           href="https://github.com/PythonHacker24"
           target="_blank"
