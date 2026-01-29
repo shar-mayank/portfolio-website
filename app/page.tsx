@@ -5,6 +5,7 @@ import { Github, Linkedin, Twitter, Youtube, Calendar } from "lucide-react";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
+import { useState, useEffect } from "react";
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -13,6 +14,28 @@ const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Home() {
+  const [time, setTime] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col items-center bg-white px-4 pt-24 text-black selection:bg-black selection:text-white pb-32">
       <main className="flex max-w-2xl flex-col items-center text-center">
@@ -38,6 +61,11 @@ export default function Home() {
           <span>/əˈdɪtjə pɑːˈtiːl/</span>
           <span className="text-gray-300">•</span>
           <span>noun</span>
+          <span className="text-gray-300">•</span>
+          <div className="flex items-center gap-1.5 min-w-[100px]">
+            <span className="tabular-nums">{time || "00:00:00"}</span>
+            <span className="text-xs uppercase tracking-wider">IST</span>
+          </div>
         </div>
 
         <div className="mb-10 w-full space-y-4 text-left text-lg leading-relaxed text-gray-600 sm:text-xl">
@@ -72,7 +100,7 @@ export default function Home() {
             </ExperienceItem>
 
             <ExperienceItem
-              title="Google Summer of Code"
+              title="Google Summer of Code 2025"
               role="Emory University School of Medicine, Atlanta, USA"
               collapsible={true}
               link="https://minimalistbook.com/gsoc-final-report-2025/"
@@ -229,6 +257,59 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Library Section */}
+        <div className="mb-16 w-full text-left">
+          <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            Library
+          </h2>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            {[
+              { title: "Linux Kernel Development", author: "Robert Love" },
+              { title: "Hacking: The Art of Exploitation", author: "Jon Erickson" },
+              { title: "Linux in a Nutshell", author: "Ellen Siever, Stephen Figgins, Robert Love, and Arnold Robbins" },
+              { title: "Linux Kernel in a Nutshell", author: "Greg Kroah-Hartman" },
+              { title: "The Art of Electronics", author: "Paul Horowitz and Winfield Hill" },
+              { title: "Nmap Cookbook", author: "Nicholas Marsh" }
+            ].map((book) => (
+              <div key={book.title} className="group flex flex-col gap-1 transition-all">
+                <span className="text-sm font-medium text-black group-hover:underline underline-offset-4 decoration-gray-200 transition-all">
+                  {book.title}
+                </span>
+                <span className="text-xs text-gray-400">
+                  {book.author}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Thing about me Section */}
+        <div className="mb-16 w-full text-left">
+          <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            Thing about me
+          </h2>
+          <div className="space-y-6">
+            <p className="max-w-xl text-lg leading-relaxed text-gray-600">
+              Beyond engineering and build systems, I find balance in the tactile and the thoughtful. Whether it&apos;s exploring the nuances of complex architectures or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
+            </p>
+
+            <div className="flex justify-center">
+              <div className="relative h-[350px] w-full max-w-sm grayscale hover:grayscale-0 transition-all duration-700" style={{ maskImage: "radial-gradient(circle, black 40%, transparent 95%)", WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 95%)" }}>
+                <Image
+                  src="/casual.png"
+                  alt="Casual photo"
+                  fill
+                  className="object-contain object-center"
+                />
+              </div>
+            </div>
+
+            <p className="max-w-xl text-lg leading-relaxed text-gray-600">
+              I believe that the best products are built by people who have a diverse range of interests. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
+            </p>
+          </div>
+        </div>
+
         {/* Get in Touch Section */}
         <div className="mb-16 w-full text-left">
           <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
@@ -253,35 +334,6 @@ export default function Home() {
                 email
               </a>
             </p>
-            <p className="text-xs text-gray-400 italic">
-              in case anyone (especially girls), if you want my number, just DM me
-            </p>
-          </div>
-        </div>
-
-        {/* Library Section */}
-        <div className="mb-16 w-full text-left">
-          <h2 className="mb- text-xs font-bold uppercase tracking-widest text-gray-400">
-            Library
-          </h2>
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            {[
-              { title: "Linux Kernel Development", author: "Robert Love" },
-              { title: "Hacking: The Art of Exploitation", author: "Jon Erickson" },
-              { title: "Linux in a Nutshell", author: "Ellen Siever, Stephen Figgins, Robert Love, and Arnold Robbins" },
-              { title: "Linux Kernel in a Nutshell", author: "Greg Kroah-Hartman" },
-              { title: "The Art of Electronics", author: "Paul Horowitz and Winfield Hill" },
-              { title: "Nmap Cookbook", author: "Nicholas Marsh" }
-            ].map((book) => (
-              <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                <span className="text-sm font-medium text-black group-hover:underline underline-offset-4 decoration-gray-200 transition-all">
-                  {book.title}
-                </span>
-                <span className="text-xs text-gray-400">
-                  {book.author}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       </main>
@@ -289,7 +341,7 @@ export default function Home() {
       {/* Glass Island Navbar */}
       <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-6 rounded-full border border-gray-200 bg-white/70 px-6 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90">
         <a
-          href="https://github.com/adityapatil"
+          href="https://github.com/PythonHacker24"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 transition-colors hover:text-black hover:scale-110"
@@ -297,7 +349,7 @@ export default function Home() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="https://linkedin.com/in/adityapatil"
+          href="https://www.linkedin.com/in/aditya-patil-260a631b2/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 transition-colors hover:text-black hover:scale-110"
@@ -305,7 +357,7 @@ export default function Home() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="https://twitter.com/adityapatil"
+          href="https://x.com/firecaffeine"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 transition-colors hover:text-black hover:scale-110"
