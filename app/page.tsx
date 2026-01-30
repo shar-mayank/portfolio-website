@@ -6,9 +6,12 @@ import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
 import { useState, useEffect, useMemo } from "react";
+import { useTheme } from "next-themes";
 import { QRCodeSVG } from "qrcode.react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { PomodoroTimer } from "./components/PomodoroTimer";
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -20,6 +23,8 @@ export default function Home() {
   const [time, setTime] = useState<string>("");
   const [showQR, setShowQR] = useState(false);
   const [mode, setMode] = useState<"human" | "agent">("human");
+
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     const updateTime = () => {
@@ -713,7 +718,13 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
                   Easter Egg <ArrowRight className="h-3 w-3" />
                 </span>
                 <button
-                  onClick={() => setShowEasterEgg(!showEasterEgg)}
+                  onClick={() => {
+                    const nextState = !showEasterEgg;
+                    setShowEasterEgg(nextState);
+                    if (nextState && resolvedTheme !== "dark") {
+                      setTheme("dark");
+                    }
+                  }}
                   className={`group relative flex h-6 w-10 cursor-pointer items-center rounded-full transition-all duration-300 ${showEasterEgg ? "bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]" : "bg-gray-200 dark:bg-gray-800"
                     }`}
                   aria-label="Toggle Easter Egg"
@@ -725,6 +736,10 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
                 </button>
               </div>
             </div>
+
+            {/* Pomodoro Timer Section */}
+            <PomodoroTimer />
+
           </motion.main>
         )}
       </AnimatePresence>
