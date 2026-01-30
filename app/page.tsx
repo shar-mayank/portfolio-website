@@ -8,6 +8,7 @@ import { TechStack } from "./components/TechStack";
 import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { QrCode, X } from "lucide-react";
+import { ThemeToggle } from "./components/ThemeToggle";
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -204,12 +205,17 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 `;
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-white px-3 pt-16 text-black selection:bg-black selection:text-white pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden">
+    <div className="flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300">
+      {/* Theme Toggle in Top Right */}
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+
       {mode === "agent" ? (
         /* Agent Mode - Markdown View */
         <main className="flex w-full max-w-2xl flex-col items-start text-left px-4 sm:px-0">
           <pre
-            className="w-full whitespace-pre-wrap font-mono text-sm leading-relaxed text-black selection:bg-black selection:text-white antialiased"
+            className="w-full whitespace-pre-wrap font-mono text-sm leading-relaxed text-black dark:text-gray-300 selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased"
             style={{ fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Console", monospace' }}
           >
             {markdownContent}
@@ -227,7 +233,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
               className="object-contain"
               priority
             />
-            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/60 to-transparent backdrop-blur-[1px]" />
+            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]" />
           </div>
 
           {/* Hero Text */}
@@ -236,29 +242,29 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           </h1>
 
           {/* Phonetic Pronunciation (Aesthetic touch often found in minimal portfolios) */}
-          <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 sm:text-sm">
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
             <span>/əˈdɪtjə pɑːˈtiːl/</span>
-            <span className="text-gray-300">•</span>
+            <span className="text-gray-300 dark:text-gray-700">•</span>
             <span>noun</span>
-            <span className="text-gray-300">•</span>
+            <span className="text-gray-300 dark:text-gray-700">•</span>
             <div className="flex items-center gap-1.5 min-w-[90px] sm:min-w-[100px]">
               <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
               <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
             </div>
           </div>
 
-          <div className="mb-10 w-full space-y-4 text-left text-base leading-relaxed text-gray-600 sm:text-lg md:text-xl">
+          <div className="mb-10 w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
             <p>
-              a full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black transition-colors">product builder</a> with deep experience across engineering, product strategy, and user-centric design.
+              a full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">product builder</a> with deep experience across engineering, product strategy, and user-centric design.
             </p>
             <p>
-              a <a href="https://en.wikipedia.org/wiki/Polymath" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black transition-colors">polymath</a> who bridges technical architecture with business outcomes to create impactful, scalable solutions.
+              a <a href="https://en.wikipedia.org/wiki/Polymath" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">polymath</a> who bridges technical architecture with business outcomes to create impactful, scalable solutions.
             </p>
           </div>
 
           {/* Experience Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Experience
             </h2>
             <div className="space-y-12">
@@ -324,10 +330,10 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* In Between These Experiences Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               In Between These Experiences
             </h2>
-            <div className="rounded-xl border border-gray-200 p-6 sm:p-8">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
               <ExperienceItem
                 title="The Product Building Journey"
                 role=""
@@ -355,7 +361,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Education Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Education
             </h2>
             <div className="space-y-12">
@@ -370,7 +376,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Contributions Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               GitHub Contributions
             </h2>
             <GithubGraph />
@@ -378,7 +384,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Research Publications Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Research Publications
             </h2>
             <div className="space-y-12">
@@ -390,24 +396,24 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
               >
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <p className="text-sm text-gray-400 font-medium">
+                    <p className="text-sm text-gray-400 dark:text-gray-500 font-medium">
                       2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)
                     </p>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-                      <p className="text-gray-600">Authors: Aditya Patil; T. S. Sreeram</p>
+                      <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
                       <a
                         href="https://doi.org/10.1109/COMSNETS63942.2025.10885597"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-xs font-medium text-black underline underline-offset-4 hover:text-gray-600"
+                        className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                       >
                         View Publication
                       </a>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-xs uppercase tracking-wider text-gray-400 font-bold">Abstract</p>
-                    <p>Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
+                    <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
+                    <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
                   </div>
                 </div>
               </ExperienceItem>
@@ -416,7 +422,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Tech Stack Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Tech Stack
             </h2>
             <TechStack />
@@ -424,40 +430,40 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Recommendations by Clients Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Recommendations by Clients
             </h2>
             <div className="space-y-8">
               {/* Roy Feldman Recommendation */}
-              <div className="group border-l-2 border-gray-200 pl-6 transition-all hover:border-black">
+              <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
                 <div className="mb-3">
                   <a
                     href="https://www.linkedin.com/in/royhax/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base font-semibold text-black underline underline-offset-4 decoration-gray-300 hover:decoration-black transition-colors"
+                    className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
                   >
                     Roy Feldman
                   </a>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   I've had the privilege to work with Aditya on several highly technical cybersecurity R&D projects involving design and implementation of defensive network components in Golang, network protocol research and analysis. He is a bright young engineer, extremely talented in hacking and cybersecurity, with a natural curiosity and passion for hacking, and a gift understanding how systems work, how to design and break them. I am certain that he will succeed in any endeavor he puts his mind to, in the realms of cybersecurity, engineering and beyond! :)
                 </p>
               </div>
 
               {/* Tom Granot Recommendation */}
-              <div className="group border-l-2 border-gray-200 pl-6 transition-all hover:border-black">
+              <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
                 <div className="mb-3">
                   <a
                     href="https://www.linkedin.com/in/tomgranot/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base font-semibold text-black underline underline-offset-4 decoration-gray-300 hover:decoration-black transition-colors"
+                    className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
                   >
                     Tom Granot
                   </a>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   It's not often that you get to talk to a person who is not only hungry for mentorship, but comes out of the gate with the attitude that enables him to learn so, so quickly on his feet.
                   <br /><br />
                   Aditya did research for highly technical content for me and independently navigated difficult situations without a lot of guidance. If you're looking for someone to research a technical topic for your content work, Aditya is disciplined, thorough and insistent on understanding things in depth before giving a final output.
@@ -470,21 +476,21 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Videos Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Explainer Videos
             </h2>
-            <p className="mb-8 text-lg text-gray-600">
+            <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
               Here is how I explain complex systems on my {" "}
               <a
                 href="https://www.youtube.com/@theracecondition"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black underline underline-offset-4 hover:text-gray-600"
+                className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
               >
                 YouTube Channel
               </a>
             </p>
-            <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm transition-all hover:shadow-md grayscale hover:grayscale-0 duration-500">
+            <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-100 dark:border-gray-900 bg-gray-50 dark:bg-gray-950 shadow-sm transition-all hover:shadow-md grayscale hover:grayscale-0 duration-500">
               <iframe
                 src="https://www.youtube.com/embed/m84tBP_4DWE"
                 title="Explaining Complex Systems"
@@ -497,16 +503,16 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Writings & Blogs Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Writings & Blogs
             </h2>
-            <p className="w-full text-lg leading-relaxed text-gray-600">
+            <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
               I host my thoughts on{" "}
               <a
                 href="https://medium.com/@adityapatil24680"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black underline underline-offset-4 transition-colors hover:text-gray-600"
+                className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
               >
                 Medium
               </a>{" "}
@@ -516,13 +522,13 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
           {/* Library Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Library
             </h2>
 
             {/* Dev Subsection */}
             <div className="mb-8">
-              <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
                 Dev
               </h3>
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -535,10 +541,10 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
                   { title: "Nmap Cookbook", author: "Nicholas Marsh" }
                 ].map((book) => (
                   <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                    <span className="text-sm font-medium text-black group-hover:underline underline-offset-4 decoration-gray-200 transition-all">
+                    <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
                       {book.title}
                     </span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       {book.author}
                     </span>
                   </div>
@@ -548,7 +554,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 
             {/* Casual Reads Subsection */}
             <div className="mb-4">
-              <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
                 Casual Reads
               </h3>
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -561,10 +567,10 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
                   { title: "The Anthology of Balaji Srinivasan", author: "Eric Jorgenson" }
                 ].map((book) => (
                   <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                    <span className="text-sm font-medium text-black group-hover:underline underline-offset-4 decoration-gray-200 transition-all">
+                    <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
                       {book.title}
                     </span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       {book.author}
                     </span>
                   </div>
@@ -573,18 +579,18 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
             </div>
 
             {/* Note */}
-            <p className="mt-6 text-xs italic text-gray-400">
+            <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">
               *and many more, these are just one of my best reads
             </p>
           </div>
 
           {/* Thing about me Section */}
           <div className="mb-16 w-full text-left">
-            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               Thing about me
             </h2>
             <div className="space-y-6">
-              <p className="w-full text-lg leading-relaxed text-gray-600">
+              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
                 Beyond engineering and build systems, I find balance in the tactile and the thoughtful. Whether it&apos;s exploring the nuances of complex architectures or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
               </p>
 
@@ -599,7 +605,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
                 </div>
               </div>
 
-              <p className="w-full text-lg leading-relaxed text-gray-600">
+              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
                 I believe that the best products are built by people who have a diverse range of interests. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
               </p>
             </div>
@@ -611,20 +617,20 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
               Get in Touch
             </h2>
             <div className="space-y-4">
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-600 dark:text-gray-400">
                 Connect with me on{" "}
                 <a
                   href="https://linkedin.com/in/adityapatil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black underline underline-offset-4 hover:text-gray-600"
+                  className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   LinkedIn
                 </a>{" "}
                 or{" "} shoot an {" "}
                 <a
                   href="mailto:adityapatil24680@gmail.com"
-                  className="text-black underline underline-offset-4 hover:text-gray-600"
+                  className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   email
                 </a>
@@ -635,18 +641,18 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
       )}
 
       {/* Glass Island Navbar */}
-      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 sm:gap-6 sm:px-6">
+      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6">
         {/* Mode Toggle Switch */}
         <div className="flex items-center">
           <button
             onClick={() => setMode(mode === "human" ? "agent" : "human")}
-            className="group relative flex h-7 w-12 cursor-pointer rounded-full bg-gray-200 p-1 transition-colors duration-200 ease-in-out hover:bg-gray-300 focus:outline-none"
+            className="group relative flex h-7 w-12 cursor-pointer rounded-full bg-gray-200 dark:bg-zinc-700 p-1 transition-colors duration-200 ease-in-out hover:bg-gray-300 dark:hover:bg-zinc-600 focus:outline-none"
             role="switch"
             aria-checked={mode === "agent"}
             title={`Switch to ${mode === "human" ? "agent" : "human"} mode`}
           >
             <div
-              className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${mode === "agent" ? "translate-x-5" : "translate-x-0"
+              className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white dark:bg-white shadow-sm transition duration-200 ease-in-out ${mode === "agent" ? "translate-x-5" : "translate-x-0"
                 }`}
             >
               {mode === "human" ? (
@@ -659,17 +665,17 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
         </div>
         <button
           onClick={() => setShowQR(true)}
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
           aria-label="Show QR Code"
         >
           <QrCode className="h-5 w-5" />
         </button>
-        <div className="h-6 w-px bg-gray-200" />
+        <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
         <a
           href="https://github.com/PythonHacker24"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <Github className="h-5 w-5" />
         </a>
@@ -677,7 +683,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           href="https://www.linkedin.com/in/aditya-patil-260a631b2/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <Linkedin className="h-5 w-5" />
         </a>
@@ -685,7 +691,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           href="https://x.com/firecaffeine"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <Twitter className="h-5 w-5" />
         </a>
@@ -693,7 +699,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           href="https://youtube.com/@theracecondition"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <Youtube className="h-5 w-5" />
         </a>
@@ -701,7 +707,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           href="https://discord.gg/ry4YCJaShK"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <DiscordIcon className="h-5 w-5" />
         </a>
@@ -709,7 +715,7 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
           href="https://cal.com/adi-patil/30min"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 transition-colors hover:text-black hover:scale-110"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <Calendar className="h-5 w-5" />
         </a>
@@ -719,26 +725,28 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
       {
         showQR && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 dark:bg-white/5 backdrop-blur-sm"
             onClick={() => setShowQR(false)}
           >
             <div
-              className="relative rounded-2xl border border-gray-200 bg-white p-8 shadow-2xl"
+              className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-8 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setShowQR(false)}
-                className="absolute -right-3 -top-3 rounded-full bg-black p-2 text-white transition-transform hover:scale-110"
+                className="absolute -right-3 -top-3 rounded-full bg-black dark:bg-white p-2 text-white dark:text-black transition-transform hover:scale-110"
                 aria-label="Close"
               >
                 <X className="h-4 w-4" />
               </button>
-              <QRCodeSVG
-                value="https://www.justaditya.com/"
-                size={200}
-                level="H"
-                includeMargin={true}
-              />
+              <div className="rounded-lg bg-white p-2">
+                <QRCodeSVG
+                  value="https://www.justaditya.com/"
+                  size={200}
+                  level="H"
+                  includeMargin={false}
+                />
+              </div>
             </div>
           </div>
         )

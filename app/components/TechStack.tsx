@@ -30,7 +30,7 @@ export function TechStack() {
                                 <img
                                     src={`https://cdn.simpleicons.org/${tech.slug}`}
                                     alt={tech.name}
-                                    className="h-full w-full object-contain"
+                                    className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-opacity dark:brightness-0 dark:invert"
                                     loading="lazy"
                                 />
                             </div>
@@ -44,7 +44,7 @@ export function TechStack() {
                                 <img
                                     src={`https://cdn.simpleicons.org/${tech.slug}`}
                                     alt={tech.name}
-                                    className="h-full w-full object-contain"
+                                    className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-opacity dark:brightness-0 dark:invert"
                                     loading="lazy"
                                 />
                             </div>
