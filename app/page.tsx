@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Youtube, Calendar, Bot, User } from "lucide-react";
+import { Github, Linkedin, Twitter, Youtube, Calendar, Bot, User, QrCode, X, ArrowRight } from "lucide-react";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
 import { useState, useEffect, useMemo } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { QrCode, X } from "lucide-react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -710,8 +709,8 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
             {/* Easter Egg Trigger */}
             <div className="mb-16 flex w-full flex-col items-start gap-3 text-left">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Easter Egg -&gt;
+                <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Easter Egg <ArrowRight className="h-3 w-3" />
                 </span>
                 <button
                   onClick={() => setShowEasterEgg(!showEasterEgg)}
