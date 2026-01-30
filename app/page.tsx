@@ -5,7 +5,7 @@ import { Github, Linkedin, Twitter, Youtube, Calendar, Bot, User } from "lucide-
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { QrCode, X } from "lucide-react";
 import { ThemeToggle } from "./components/ThemeToggle";
@@ -205,8 +205,61 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
 - Calendar: [https://cal.com/adi-patil/30min](https://cal.com/adi-patil/30min)
 `;
 
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+
+  const starPositions = useMemo(() => {
+    return [...Array(50)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: 2 + Math.random() * 3,
+      delay: Math.random() * 5,
+    }));
+  }, []);
+
   return (
-    <div className="flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300">
+    <div className={`relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300`}>
+      {/* Easter Egg Effects */}
+      <AnimatePresence>
+        {showEasterEgg && (
+          <>
+            {/* Bluish Aura Edge Effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] pointer-events-none shadow-[inset_0_0_150px_rgba(29,78,216,0.5)] dark:shadow-[inset_0_0_150px_rgba(59,130,246,0.4)] transition-opacity duration-1000"
+            />
+            {/* Twinkling Stars Background */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
+            >
+              {starPositions.map((pos, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-[2px] w-[2px] bg-blue-500 dark:bg-white rounded-full shadow-[0_0_4px_rgba(59,130,246,0.8)] dark:shadow-[0_0_3px_white]"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                  }}
+                  animate={{
+                    opacity: [0.2, 1, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: pos.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: pos.delay,
+                  }}
+                />
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
       {/* Theme Toggle in Top Right */}
       <div className="fixed top-6 right-6 z-50">
         <ThemeToggle />
@@ -651,6 +704,26 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adityapatil) or shoot an [
                     email
                   </a>
                 </p>
+              </div>
+            </div>
+
+            {/* Easter Egg Trigger */}
+            <div className="mb-16 flex w-full flex-col items-start gap-3 text-left">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Easter Egg -&gt;
+                </span>
+                <button
+                  onClick={() => setShowEasterEgg(!showEasterEgg)}
+                  className={`group relative flex h-6 w-10 cursor-pointer items-center rounded-full transition-all duration-300 ${showEasterEgg ? "bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]" : "bg-gray-200 dark:bg-gray-800"
+                    }`}
+                  aria-label="Toggle Easter Egg"
+                >
+                  <div
+                    className={`h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-300 ${showEasterEgg ? "translate-x-5" : "translate-x-1"
+                      }`}
+                  />
+                </button>
               </div>
             </div>
           </motion.main>
