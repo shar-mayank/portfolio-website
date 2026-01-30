@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Youtube, Calendar, Bot, User, QrCode, X, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Twitter, Youtube, Calendar, Bot, User, QrCode, X, ArrowRight, Music, Pause } from "lucide-react";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useTheme } from "next-themes";
 import { QRCodeSVG } from "qrcode.react";
 import { ThemeToggle } from "./components/ThemeToggle";
@@ -210,6 +210,39 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
 `;
 
   const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [isLofiPlaying, setIsLofiPlaying] = useState(false);
+  const [lofiVolume, setLofiVolume] = useState(0.5);
+  const lofiRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (lofiRef.current) {
+      lofiRef.current.volume = lofiVolume;
+    }
+  }, [lofiVolume]);
+
+  useEffect(() => {
+    return () => {
+      if (lofiRef.current) {
+        lofiRef.current.pause();
+        lofiRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleLofi = () => {
+    if (!lofiRef.current) {
+      lofiRef.current = new Audio("/lofi.mp3");
+      lofiRef.current.loop = true;
+      lofiRef.current.volume = lofiVolume;
+    }
+
+    if (isLofiPlaying) {
+      lofiRef.current.pause();
+    } else {
+      lofiRef.current.play().catch(e => console.error("Lofi play failed:", e));
+    }
+    setIsLofiPlaying(!isLofiPlaying);
+  };
 
   const starPositions = useMemo(() => {
     return [...Array(50)].map(() => ({
@@ -320,9 +353,44 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
               <span className="text-gray-300 dark:text-gray-700">•</span>
               <span>noun</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
-              <div className="flex items-center gap-1.5 min-w-[90px] sm:min-w-[100px]">
-                <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
-                <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
+                  <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
+                </div>
+
+                <span className="text-gray-300 dark:text-gray-700">•</span>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
+                  <button
+                    onClick={toggleLofi}
+                    className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white"
+                    aria-label={isLofiPlaying ? "Pause Lofi" : "Play Lofi"}
+                  >
+                    {isLofiPlaying ? <Pause size={10} fill="currentColor" /> : <Music size={10} />}
+                  </button>
+                  <AnimatePresence>
+                    {isLofiPlaying && (
+                      <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 40, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        className="flex h-5 items-center overflow-hidden"
+                      >
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={lofiVolume}
+                          onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
+                          className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
 
@@ -711,6 +779,9 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
               </div>
             </div>
 
+            {/* Pomodoro Timer Section */}
+            <PomodoroTimer />
+
             {/* Easter Egg Trigger */}
             <div className="mb-16 flex w-full flex-col items-start gap-3 text-left">
               <div className="flex items-center gap-3">
@@ -736,9 +807,6 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2
                 </button>
               </div>
             </div>
-
-            {/* Pomodoro Timer Section */}
-            <PomodoroTimer />
 
           </motion.main>
         )}

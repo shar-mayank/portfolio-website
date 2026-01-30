@@ -89,13 +89,12 @@ export function PomodoroTimer() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         exit={{ opacity: 0 }}
-                        className="pointer-events-none absolute -inset-4 z-0 rounded-2xl border-2 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                        className="pointer-events-none absolute -inset-4 z-0 rounded-2xl border-2 border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.2)]"
                         animate={{
-                            scale: [1, 1.02, 1],
-                            opacity: [0.3, 0.6, 0.3],
+                            opacity: [0.2, 0.4, 0.2],
                         }}
                         transition={{
-                            duration: 2,
+                            duration: 3,
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
@@ -105,14 +104,21 @@ export function PomodoroTimer() {
 
             <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    Timer
+                    Pomodoro Timer
                 </h2>
+
                 <button
                     onClick={() => setShowSettings(!showSettings)}
                     className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                 >
                     {showSettings ? "Close Settings" : "Adjust Time"}
                 </button>
+            </div>
+
+            <div className="mb-8 w-full text-left">
+                <p className="text-sm italic text-gray-500 dark:text-gray-400">
+                    You&apos;ve reached the end! Or have you? Before you vanish into the digital void, I&apos;ve got a quick Pomodoro Timer to help you focus better on your next big thing (or just to remind you to stop doomscrolling).
+                </p>
             </div>
 
             <div className="relative z-10 overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900/50">
@@ -210,7 +216,7 @@ export function PomodoroTimer() {
             {completed && (
                 <button
                     onClick={() => setCompleted(false)}
-                    className="mt-4 text-[10px] font-bold uppercase tracking-widest text-purple-500 animate-pulse transition-opacity hover:opacity-100"
+                    className="mt-4 text-[10px] font-bold uppercase tracking-widest text-purple-500 transition-opacity hover:opacity-100"
                 >
                     Dismiss Alarm
                 </button>
