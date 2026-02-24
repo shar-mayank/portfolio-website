@@ -1,9 +1,9 @@
 export const getMarkdownContent = (time: string) => `# Mayank Sharma
-/məˈjæŋk ˈʃɑːrmɑː/ • noun • ${time || "00:00:00"} IST
+I love to build • New Delhi, India • ${time || "00:00:00"} IST
 
 ## About
 
-I'm an Engineering student that's trying to dabble between backend development and GenAI stuff. Amateur badminton player, pro cook (at home) and an avid music lover.
+I'm an Engineering student that's trying to get into Research while learning and working on backend and GenAI stuff. Amateur badminton player, pro cook (at home) and an avid music lover.
 
 I love to build.
 

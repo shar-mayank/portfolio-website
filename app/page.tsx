@@ -7,7 +7,7 @@ import { SiHuggingface } from "react-icons/si";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,13 +46,17 @@ export default function Home() {
 
   const markdownContent = getMarkdownContent(time);
 
-  const starPositions = useMemo(() => {
-    return [...Array(50)].map(() => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      duration: 2 + Math.random() * 3,
-      delay: Math.random() * 5,
-    }));
+  const [starPositions, setStarPositions] = useState<Array<{top: string; left: string; duration: number; delay: number}>>([]);
+
+  useEffect(() => {
+    setStarPositions(
+      [...Array(50)].map(() => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        duration: 2 + Math.random() * 3,
+        delay: Math.random() * 5,
+      }))
+    );
   }, []);
 
   return (
@@ -130,11 +134,11 @@ export default function Home() {
               Mayank Sharma
             </h1>
 
-            {/* Phonetic Pronunciation (Aesthetic touch often found in minimal portfolios) */}
+            {/* Subtitle Info */}
             <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
-              <span>/məˈjæŋk ˈʃɑːrmɑː/</span>
+              <span>I love to build</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
-              <span>noun</span>
+              <span>New Delhi</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
               <div className="flex items-center gap-1.5">
                 <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
@@ -144,7 +148,7 @@ export default function Home() {
 
             <div className="mb-8 w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                I'm an Engineering student that's trying to dabble between backend development and GenAI stuff. Amateur badminton player, pro cook and an avid music lover.
+                I'm an Engineering student that's trying to get into Research while learning and working on backend and GenAI stuff. Amateur badminton player, pro cook (at home) and an avid music lover.
               </p>
             </div>
 
