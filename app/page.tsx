@@ -46,8 +46,6 @@ export default function Home() {
 
   const markdownContent = getMarkdownContent(time);
 
-  const [showEasterEgg, setShowEasterEgg] = useState(false);
-
   const starPositions = useMemo(() => {
     return [...Array(50)].map(() => ({
       top: `${Math.random() * 100}%`,
@@ -59,48 +57,29 @@ export default function Home() {
 
   return (
     <div className={`relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300`}>
-      {/* Easter Egg Effects */}
-      <AnimatePresence>
-        {showEasterEgg && (
-          <>
-            {/* Bluish Aura Edge Effect */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] pointer-events-none shadow-[inset_0_0_150px_rgba(29,78,216,0.5)] dark:shadow-[inset_0_0_150px_rgba(59,130,246,0.4)] transition-opacity duration-1000"
-            />
-            {/* Twinkling Stars Background */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-            >
-              {starPositions.map((pos, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute h-[2px] w-[2px] bg-blue-500 dark:bg-white rounded-full shadow-[0_0_4px_rgba(59,130,246,0.8)] dark:shadow-[0_0_3px_white]"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                  }}
-                  animate={{
-                    opacity: [0.2, 1, 0.2],
-                    scale: [0.8, 1.2, 0.8],
-                  }}
-                  transition={{
-                    duration: pos.duration,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: pos.delay,
-                  }}
-                />
-              ))}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Twinkling Stars Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        {starPositions.map((pos, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-[2px] w-[2px] bg-gray-400 dark:bg-white rounded-full shadow-[0_0_3px_rgba(156,163,175,0.6)] dark:shadow-[0_0_3px_white]"
+            style={{
+              top: pos.top,
+              left: pos.left,
+            }}
+            animate={{
+              opacity: [0.2, 1, 0.2],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: pos.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: pos.delay,
+            }}
+          />
+        ))}
+      </div>
       {/* Theme Toggle in Top Right */}
       <div className="fixed top-6 right-6 z-50">
         <ThemeToggle />
@@ -134,24 +113,17 @@ export default function Home() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="flex w-full max-w-2xl flex-col items-center text-center"
           >
-            {/* Profile Image - Easter Egg Trigger */}
-            <button
-              onClick={() => setShowEasterEgg(!showEasterEgg)}
-              className="group relative mb-2 h-40 w-40 sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95"
-              aria-label="Toggle Aura Mode"
-            >
+            {/* Profile Image */}
+            <div className="relative mb-2 h-40 w-40 sm:h-56 sm:w-56 overflow-hidden">
               <Image
                 src="/window.png"
                 alt="Profile"
                 fill
-                className={`object-contain transition-all duration-700 ${showEasterEgg ? 'grayscale-0 scale-105' : 'grayscale'}`}
+                className="object-contain"
                 priority
               />
               <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]" />
-
-              {/* Subtle Glow on Hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.3)] rounded-full pointer-events-none" />
-            </button>
+            </div>
 
             {/* Hero Text */}
             <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
