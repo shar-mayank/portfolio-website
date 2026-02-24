@@ -8,52 +8,39 @@ const categories = [
     {
         name: "Languages",
         skills: [
-            { name: "Go", slug: "go" },
             { name: "Python", slug: "python" },
-            { name: "TypeScript", slug: "typescript" },
-            { name: "JavaScript", slug: "javascript" },
+            { name: "C", slug: "c" },
             { name: "C++", slug: "cplusplus" },
+            { name: "SQL", slug: "mysql" },
+            { name: "Bash", slug: "gnubash" },
         ]
     },
     {
-        name: "Frontend",
+        name: "AI & ML",
         skills: [
-            { name: "React", slug: "react" },
-            { name: "Next.js", slug: "nextdotjs" },
-            { name: "Tailwind CSS", slug: "tailwindcss" },
-            { name: "Shadcn UI", slug: "shadcnui" },
-            { name: "Framer Motion", slug: "framer" },
+            { name: "PyTorch", slug: "pytorch" },
+            { name: "Pandas", slug: "pandas" },
+            { name: "NumPy", slug: "numpy" },
+            { name: "Hugging Face", slug: "huggingface" },
+            { name: "LangChain", slug: "langchain" },
         ]
     },
     {
         name: "Backend & DB",
         skills: [
             { name: "FastAPI", slug: "fastapi" },
-            { name: "Node.js", slug: "nodedotjs" },
             { name: "PostgreSQL", slug: "postgresql" },
+            { name: "MySQL", slug: "mysql" },
             { name: "MongoDB", slug: "mongodb" },
-            { name: "Redis", slug: "redis" },
-            { name: "FireBase", slug: "firebase" },
         ]
     },
     {
         name: "Infra & Tools",
         skills: [
             { name: "Docker", slug: "docker" },
-            { name: "Google Cloud", slug: "googlecloud" },
-            { name: "Vercel", slug: "vercel" },
+            { name: "AWS", slug: "amazonwebservices" },
+            { name: "Azure", slug: "microsoftazure" },
             { name: "Git", slug: "git" },
-            { name: "GitHub", slug: "github" },
-            { name: "Linux", slug: "linux" },
-            { name: "Nginx", slug: "nginx" },
-        ]
-    },
-    {
-        name: "AI & ML",
-        skills: [
-            { name: "Hugging Face", slug: "huggingface" },
-            { name: "PyTorch", slug: "pytorch" },
-            { name: "Pandas", slug: "pandas" },
         ]
     }
 ];

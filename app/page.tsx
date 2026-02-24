@@ -1,31 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Youtube, Calendar, Bot, User, QrCode, X, ArrowRight, Music, Pause } from "lucide-react";
-import { FaXTwitter } from "react-icons/fa6";
+import { Github, Linkedin, Bot, User, FileText } from "lucide-react";
+import { FaXTwitter, FaSpotify } from "react-icons/fa6";
+import { SiHuggingface } from "react-icons/si";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { GithubGraph } from "./components/GithubGraph";
 import { TechStack } from "./components/TechStack";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
-import { QRCodeSVG } from "qrcode.react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { PomodoroTimer } from "./components/PomodoroTimer";
-import { NeuralNetworkSim } from "./components/NeuralNetworkSim";
+
 
 import { getMarkdownContent } from "./data/content";
 
-const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
-  </svg>
-);
+
 
 export default function Home() {
   const [time, setTime] = useState<string>("");
-  const [showQR, setShowQR] = useState(false);
   const [mode, setMode] = useState<"human" | "agent">("human");
 
   const { setTheme, resolvedTheme } = useTheme();
@@ -53,39 +47,6 @@ export default function Home() {
   const markdownContent = getMarkdownContent(time);
 
   const [showEasterEgg, setShowEasterEgg] = useState(false);
-  const [isLofiPlaying, setIsLofiPlaying] = useState(false);
-  const [lofiVolume, setLofiVolume] = useState(1);
-  const lofiRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    if (lofiRef.current) {
-      lofiRef.current.volume = lofiVolume;
-    }
-  }, [lofiVolume]);
-
-  useEffect(() => {
-    return () => {
-      if (lofiRef.current) {
-        lofiRef.current.pause();
-        lofiRef.current = null;
-      }
-    };
-  }, []);
-
-  const toggleLofi = () => {
-    if (!lofiRef.current) {
-      lofiRef.current = new Audio("/lofi.mp3");
-      lofiRef.current.loop = true;
-      lofiRef.current.volume = lofiVolume;
-    }
-
-    if (isLofiPlaying) {
-      lofiRef.current.pause();
-    } else {
-      lofiRef.current.play().catch(e => console.error("Lofi play failed:", e));
-    }
-    setIsLofiPlaying(!isLofiPlaying);
-  };
 
   const starPositions = useMemo(() => {
     return [...Array(50)].map(() => ({
@@ -176,11 +137,11 @@ export default function Home() {
             {/* Profile Image - Easter Egg Trigger */}
             <button
               onClick={() => setShowEasterEgg(!showEasterEgg)}
-              className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95"
+              className="group relative mb-2 h-40 w-40 sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95"
               aria-label="Toggle Aura Mode"
             >
               <Image
-                src="/me.png" // User's photo
+                src="/window.png"
                 alt="Profile"
                 fill
                 className={`object-contain transition-all duration-700 ${showEasterEgg ? 'grayscale-0 scale-105' : 'grayscale'}`}
@@ -194,66 +155,26 @@ export default function Home() {
 
             {/* Hero Text */}
             <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
-              Aditya Patil
+              Mayank Sharma
             </h1>
 
             {/* Phonetic Pronunciation (Aesthetic touch often found in minimal portfolios) */}
             <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
-              <span>/əˈdɪtjə pɑːˈtiːl/</span>
+              <span>/məˈjæŋk ˈʃɑːrmɑː/</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
               <span>noun</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5">
-                  <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
-                  <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
-                </div>
-
-                <span className="text-gray-300 dark:text-gray-700">•</span>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
-                  <button
-                    onClick={toggleLofi}
-                    className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white"
-                    aria-label={isLofiPlaying ? "Pause Lofi" : "Play Lofi"}
-                  >
-                    {isLofiPlaying ? <Pause size={10} fill="currentColor" /> : <Music size={10} />}
-                  </button>
-                  <AnimatePresence>
-                    {isLofiPlaying && (
-                      <motion.div
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: 40, opacity: 1 }}
-                        exit={{ width: 0, opacity: 0 }}
-                        className="flex h-5 items-center overflow-hidden"
-                      >
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.01"
-                          value={lofiVolume}
-                          onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
-                          className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
+                <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
               </div>
             </div>
 
-            <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
+            <div className="mb-8 w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                a full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">product builder</a> with deep experience across engineering, product strategy, and user-centric design.
-              </p>
-              <p>
-                a <a href="https://en.wikipedia.org/wiki/Polymath" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">polymath</a> who bridges technical architecture with business outcomes to create impactful, scalable solutions.
+                I'm an Engineering student that's trying to dabble between backend development and GenAI stuff. Amateur badminton player, pro cook and an avid music lover.
               </p>
             </div>
-
-            <NeuralNetworkSim />
 
             {/* Experience Section */}
             <div className="mb-16 w-full text-left">
@@ -262,90 +183,73 @@ export default function Home() {
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="Entrepreneur First"
-                  role="Founder in Residence, Bengaluru"
+                  title="Digital India Corporation, MeitY"
+                  role="Intern, 2025"
                   collapsible={true}
-                  link="https://www.joinef.com/"
+                  link="https://dic.gov.in/"
                 >
                   <div className="space-y-2">
-                    <p>As a Founder in Residence at Entrepreneurs First (EF), a premier global talent investor and startup accelerator known for backing exceptional individuals to build transformative companies from scratch, I am fully immersed in designing and developing cutting-edge Agentic AI systems.</p>
-                    <p>Actively building autonomous, goal-driven AI agents that shift from suggestion-based tools to proactive execution, enabling seamless human-AI collaboration and redefining task automation, decision-making, and operations.</p>
-                    <p>Driving a bold vision for the future of computing: making traditional web browsing obsolete, turning personal data into the primary interface (your "homepage"), and empowering agentic systems to independently handle complex responsibilities.</p>
-                    <p>Hustling full-time in a high-intensity, ambition-fueled environment surrounded by world-class cofounders, mentors, and resources - leveraging EF's structured support (including coaching, community, and potential funding pathways) to explore, validate, and iterate ideas at pace.</p>
-                    <p>Positioning myself at the forefront of a paradigm shift in AI, tackling hard technical and conceptual challenges to create meaningful, scalable impact in the emerging agentic era.</p>
-                    <p>This role highlights my entrepreneurial drive, deep technical expertise in AI systems, and commitment to pioneering the next wave of intelligent, autonomous technology.</p>
+                    <p>Developed a document-grounded RAG assistant with LangChain, Ollama (Gemma 3), FAISS, and FastAPI, enabling scalable semantic retrieval and inference from internal PDFs.</p>
+                    <p>Designed and implemented a document-grounded Retrieval-Augmented Generation (RAG) assistant using LangChain and Ollama (Gemma 3), leveraging open-source embedding models to vectorize internal PDF content for high-accuracy semantic retrieval.</p>
+                    <p>Built end-to-end preprocessing and chunking pipelines for unstructured data, fine-tuned document retrieval with FAISS, and integrated the system with FastAPI to expose scalable inference endpoints; also documented APIs and conducted functional validation.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["AI", "RAG", "Python", "Langchain", "FAISS"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </ExperienceItem>
 
                 <ExperienceItem
-                  title="Google Summer of Code 2025"
-                  role="Emory University School of Medicine, Atlanta, USA"
+                  title="Recallr AI Inc."
+                  role="Founding Engineer, 2025"
                   collapsible={true}
-                  link="https://minimalistbook.com/gsoc-final-report-2025/"
+                  link="https://recallrai.com/"
                 >
                   <div className="space-y-2">
-                    <p>Designed and developed a comprehensive system for managing Access Control List (ACL) permissions across multiple Linux file system servers, including NFS and BeeGFS, demonstrating expertise in large-scale distributed systems and secure file management.</p>
-                    <p>Built a robust backend capable of processing millions of permission change requests, showcasing proficiency in high-performance computing and scalability.</p>
-                    <p>Implemented two Linux systemd daemons communicating via Unix sockets: one for gRPC-based backend interactions and another for executing ACL changes, highlighting skills in daemon development, inter-process communication, and system-level programming.</p>
-                    <p>Created a user-friendly Next.js frontend enabling secure login, backend communication, and scheduling of permission requests, illustrating full-stack development capabilities and focus on intuitive user experiences.</p>
+                    <p>Building Long term memory for conversational AI agents, enabling them to remember and recall information across sessions.</p>
+                    <p>Got selected for an interview at Y Combinator for the Summer 2025 batch.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["AI", "Memory Systems", "Y Combinator"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </ExperienceItem>
 
                 <ExperienceItem
-                  title="Professional Freelancer (Technical GTM)"
-                  role="Technical Writer, Tel Aviv, Israel"
+                  title="Stapes AI"
+                  role="Co-Founder, 2024 - 2025"
                   collapsible={true}
-                  link="https://www.upwork.com/freelancers/~0172a072394ece49bb?viewMode=1"
+                  link="https://github.com/orgs/stapesai/"
                 >
                   <div className="space-y-2">
-                    <p>Authored comprehensive, highly technical documentation (50+ pages) for a Software Composition Analysis (SCA) tool, including detailed guides on advanced features such as reachability analysis - focusing on identifying truly exploitable vulnerabilities in open-source dependencies to reduce noise and prioritize remediation in secure software development lifecycles.</p>
-                    <p>Ghostwrote in-depth content on Reachability Analysis for the CTO of a security company, explaining how it enhances SCA by determining whether detected vulnerabilities are actually reachable and exploitable in the application's codebase - delivering clear, authoritative thought leadership material suitable for blogs, whitepapers, or technical marketing.</p>
-                    <p>Deployed and configured Flipt (an open-source, Git-native feature flagging platform) on cloud infrastructure to support video production workflows for a feature flagging provider; troubleshot and resolved operational issues to ensure reliable, production-ready performance in a dynamic environment.</p>
-                    <p>Developed custom scraping tools for a proxy provider targeting real estate platforms, enabling efficient data extraction while adhering to technical and ethical constraints; rapidly produced high-quality articles and technical write-ups on the tools, scraping methodologies, and platform integrations to support knowledge sharing and client deliverables.</p>
+                    <p>Co-Founded an AI Home Automation company, successfully shipping v1.0 of the product in a month and acquired 50+ beta testers.</p>
+                    <p>Developed high-end home automation solution, integrating AI agent with Smart TV, Fire Stick, Apple CarPlay and switch board integrations.</p>
+                    <p>Currently white-labeling the home automation tech to other players.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["AI", "IoT", "Home Automation", "Startup"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </ExperienceItem>
 
                 <ExperienceItem
-                  title="Engineering Intern"
-                  role="Athena Consulting Ltd. Dubai"
+                  title="Google Developers Group"
+                  role="Core Member, 2023 - 2024"
                   collapsible={true}
+                  link="https://www.gdgsrm.com/"
                 >
                   <div className="space-y-2">
-                    <p>Led the complete system design and deployment architecture for Eumlet, a UAE-based B2B Web3 payments and financial platform (built on Next.js), on AWS infrastructure. Configured Debian EC2 instances, Application Load Balancer (ALB), and NGINX reverse proxy under senior guidance - ensuring high availability, scalability, and secure handling of financial transactions in a regulated environment.</p>
-                    <p>Engineered automated CI/CD pipelines using GitHub Actions for seamless build, test, and deployment workflows, with direct integration and manual orchestration to EC2 targets - demonstrating strong expertise in modern DevOps practices, infrastructure as code principles, and zero-downtime deployments for production fintech applications.</p>
-                    <p>Managed a team of 4 developers while simultaneously supporting two high-value clients: Lunarspace and Concordium (a privacy-focused Layer-1 blockchain platform) - balancing tight deadlines, client expectations, and resource constraints in a fast-paced environment. Authored comprehensive legal and technical developer handbooks to standardize onboarding, compliance, and best practices for new recruits.</p>
-                    <p>Collaborated remotely with BGTrade (China-based financial platform team) on global security audits and production deployments of sensitive financial systems - coordinating across time zones and cultures to identify vulnerabilities, implement hardening measures, and ensure secure, compliant rollouts in cross-border fintech ecosystems.</p>
-                  </div>
-                </ExperienceItem>
-              </div>
-            </div>
-
-
-            {/* In Between These Experiences Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                In Between These Experiences
-              </h2>
-              <div className="rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
-                <ExperienceItem
-                  title="The Product Building Journey"
-                  role=""
-                  collapsible={true}
-                >
-                  <div className="space-y-4">
-                    <p>I've been building and experimenting on the product side for a long time. Each previous product always feels naive in hindsight, but looking back, I can see they were incrementally better, each iteration teaching me something new about users, infrastructure, and what it takes to build something people actually want.</p>
-
-                    <p>It started with <span className="font-medium">MetaWiper</span> during my sophomore year, a tool that cleaned image metadata. No one would use it, but I was proud. It was my first real attempt at shipping something complete.</p>
-
-                    <p>Next came <span className="font-medium">Stockic</span>, a news app where I spent months doing serious infrastructure work. This was where I learned to build systems that could scale, not just features that looked good.</p>
-
-                    <p>Then I worked on <span className="font-medium">Gloss Card</span>, and for the first time, a customer actually wanted to buy it for their product. That validation, knowing someone saw enough value to pay, was a turning point.</p>
-
-                    <p>After that, I built <span className="font-medium">NeuraLeap</span>, where I had the most meaningful user interactions yet, HRs from established firms. I worked on data pipelines capable of handling 50 million LinkedIn profiles and processing them with AI. The scale was different, the stakes were higher, and the technical challenges forced me to level up.</p>
-
-                    <p>Most recently, I worked on <span className="font-medium">Meteor</span>, an AI SEO toolkit at Entrepreneurs First. This time, my product was being used by 6 YC-backed companies. Real users. Real traction. Real feedback loops.</p>
-
-                    <p className="font-medium text-black">So yes, hard work and consistency pay off. Each product was a step forward, even when it didn't feel like it at the time.</p>
+                    <p>Technical core member AI&amp;ML team of GDSC Club at SRMIST.</p>
+                    <p>Co-organized Research Summit: SRM 2024, featuring Mr. Abhijeet Bhattacharya, Product Engineer at Coding Blocks, attended by about 50+ students.</p>
+                    <p>Facilitated student presentations and discussions on research ideas.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["ML Workshops", "Community Building"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </ExperienceItem>
               </div>
@@ -359,10 +263,22 @@ export default function Home() {
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="National Institute of Technology Hamirpur"
-                  role="Electrical Engineering"
+                  title="SRM Institute of Science and Technology"
+                  role="2022 - 2026"
                 >
-                  <p>2022 - Surviving</p>
+                  <p>Bachelor of Technology in Computer Science, Specialization in AI and ML; CGPA: 9.1</p>
+                </ExperienceItem>
+                <ExperienceItem
+                  title="Surajkund International School"
+                  role="2020 - 2022"
+                >
+                  <p>Higher Secondary Education; Percentage: 82%</p>
+                </ExperienceItem>
+                <ExperienceItem
+                  title="Surajkund International School"
+                  role="2018 - 2020"
+                >
+                  <p>Secondary Education; Percentage: 92%</p>
                 </ExperienceItem>
               </div>
             </div>
@@ -375,235 +291,133 @@ export default function Home() {
               <GithubGraph />
             </div>
 
-            {/* Research Publications Section */}
+            {/* Skills / Tech Stack Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Research Publications
+                Skills
+              </h2>
+              <TechStack />
+            </div>
+
+            {/* Side Projects Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Side Projects
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="Cross-Compatible Encryption Adapter for Securing Legacy Modbus Devices"
+                  title="RAG based Chat Assistant"
                   role=""
                   collapsible={true}
-                  collapsedHeight="max-h-40"
+                  link="https://github.com/shar-mayank/RAG-based-Chat-Assistant"
                 >
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-gray-400 dark:text-gray-500 font-medium">
-                        2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)
-                      </p>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-                        <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
-                        <a
-                          href="https://doi.org/10.1109/COMSNETS63942.2025.10885597"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
-                        >
-                          View Publication
-                        </a>
-                      </div>
+                  <div className="space-y-2">
+                    <p>Built a RAG pipeline for semantic QA over PDFs using LangChain, FAISS, and Ollama (Gemma 3). Implemented document parsing, OCR fallback, and recursive chunking for embeddings.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["Python", "LangChain", "FastAPI", "FAISS", "PostgreSQL", "Ollama"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
                     </div>
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
-                      <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
+                  </div>
+                </ExperienceItem>
+
+                <ExperienceItem
+                  title="Automatic Speech Recognition System"
+                  role=""
+                  collapsible={true}
+                  link="https://github.com/stapesai/ASR"
+                >
+                  <div className="space-y-2">
+                    <p>Two Whisper models (750M &amp; 1.1B) were fine-tuned for Hindi ASR using 10k hours of Gram Vani audio. The models were optimized for real-time transcription with a latency of 200-300ms on 30s audio chunks.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["PyTorch", "Transformers", "FastAPI", "WebSockets", "Whisper"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </ExperienceItem>
+
+                <ExperienceItem
+                  title="Garden Of Days"
+                  role=""
+                  collapsible={true}
+                  link="https://github.com/shar-mayank/Garden-Of-Days"
+                >
+                  <div className="space-y-2">
+                    <p>Garden Of Days is a lightweight SwiftUI journaling app that encourages a short daily memory entry for every day of the year. It stores entries using SwiftData and includes a companion widget.</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["SwiftUI", "SwiftData", "WidgetKit"].map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+                      ))}
                     </div>
                   </div>
                 </ExperienceItem>
               </div>
             </div>
 
-            {/* Tech Stack Section */}
+            {/* Achievements Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Tech Stack
-              </h2>
-              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-                I&apos;m a generalist at heart who can build with anything, but here&apos;s the core stack I&apos;ve spent the most time with:
-              </p>
-              <TechStack />
-            </div>
-
-            {/* Recommendations by Clients Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Recommendations by Clients
+                Achievements
               </h2>
               <div className="space-y-8">
-                {/* Roy Feldman Recommendation */}
                 <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
-                  <div className="mb-3">
-                    <a
-                      href="https://www.linkedin.com/in/royhax/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
-                    >
-                      Roy Feldman
-                    </a>
+                  <div className="mb-1">
+                    <span className="text-base font-semibold text-black dark:text-white">Multiple Hackathons Ranker</span>
+                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-500">2024</span>
                   </div>
                   <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                    I've had the privilege to work with Aditya on several highly technical cybersecurity R&D projects involving design and implementation of defensive network components in Golang, network protocol research and analysis. He is a bright young engineer, extremely talented in hacking and cybersecurity, with a natural curiosity and passion for hacking, and a gift understanding how systems work, how to design and break them. I am certain that he will succeed in any endeavor he puts his mind to, in the realms of cybersecurity, engineering and beyond! :)
+                    Ranked among top 10 teams out of 100+ teams in many Hackathons.
                   </p>
                 </div>
-
-                {/* Tom Granot Recommendation */}
                 <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
-                  <div className="mb-3">
-                    <a
-                      href="https://www.linkedin.com/in/tomgranot/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
-                    >
-                      Tom Granot
-                    </a>
+                  <div className="mb-1">
+                    <span className="text-base font-semibold text-black dark:text-white">CBSE Merit Certificate Holder</span>
+                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-500">2020</span>
                   </div>
                   <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                    It's not often that you get to talk to a person who is not only hungry for mentorship, but comes out of the gate with the attitude that enables him to learn so, so quickly on his feet.
-                    <br /><br />
-                    Aditya did research for highly technical content for me and independently navigated difficult situations without a lot of guidance. If you're looking for someone to research a technical topic for your content work, Aditya is disciplined, thorough and insistent on understanding things in depth before giving a final output.
-                    <br /><br />
-                    Keep on keeping on brother!
+                    Scored 99/100 marks in English in 10th Board Exams.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Videos Section */}
+            {/* Certifications Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Explainer Videos
+                Certifications
               </h2>
-              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-                Here is how I explain complex systems on my {" "}
-                <a
-                  href="https://www.youtube.com/@theracecondition"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  YouTube Channel
-                </a>
-              </p>
-              <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-100 dark:border-gray-900 bg-gray-50 dark:bg-gray-950 shadow-sm transition-all hover:shadow-md grayscale hover:grayscale-0 duration-500">
-                <iframe
-                  src="https://www.youtube.com/embed/m84tBP_4DWE"
-                  title="Explaining Complex Systems"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="h-full w-full"
-                />
-              </div>
-            </div>
-
-            {/* Writings & Blogs Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Writings & Blogs
-              </h2>
-              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                I host my thoughts on{" "}
-                <a
-                  href="https://medium.com/@adityapatil24680"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  Medium
-                </a>{" "}
-                rather than building a custom site. Instead of overengineering and reinventing the wheel, I prefer leveraging a mature platform that lets me focus on what matters: sharing insights on AI systems, product strategy, and technical architecture.
-              </p>
-            </div>
-
-            {/* Library Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Library
-              </h2>
-
-              {/* Dev Subsection */}
-              <div className="mb-8">
-                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
-                  Dev
-                </h3>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {[
-                    { title: "Linux Kernel Development", author: "Robert Love" },
-                    { title: "Hacking: The Art of Exploitation", author: "Jon Erickson" },
-                    { title: "Linux in a Nutshell", author: "Ellen Siever, Stephen Figgins, Robert Love, and Arnold Robbins" },
-                    { title: "Linux Kernel in a Nutshell", author: "Greg Kroah-Hartman" },
-                    { title: "The Art of Electronics", author: "Paul Horowitz and Winfield Hill" },
-                    { title: "Nmap Cookbook", author: "Nicholas Marsh" }
-                  ].map((book) => (
-                    <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                      <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
-                        {book.title}
-                      </span>
-                      <span className="text-xs text-gray-400 dark:text-gray-500">
-                        {book.author}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Casual Reads Subsection */}
-              <div className="mb-4">
-                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
-                  Casual Reads
-                </h3>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {[
-                    { title: "Hooked: How to Build Habit-Forming Products", author: "Nir Eyal" },
-                    { title: "The Lean Startup", author: "Eric Ries" },
-                    { title: "Zero to One", author: "Peter Thiel" },
-                    { title: "The Almanack of Naval Ravikant", author: "Eric Jorgenson" },
-                    { title: "Deep Work", author: "Cal Newport" },
-                    { title: "The Anthology of Balaji Srinivasan", author: "Eric Jorgenson" }
-                  ].map((book) => (
-                    <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                      <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
-                        {book.title}
-                      </span>
-                      <span className="text-xs text-gray-400 dark:text-gray-500">
-                        {book.author}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Note */}
-              <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">
-                *and many more, these are just one of my best reads
-              </p>
-            </div>
-
-            {/* Thing about me Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Thing about me
-              </h2>
-              <div className="space-y-6">
-                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  Beyond engineering and build systems, I find balance in the tactile and the thoughtful. Whether it&apos;s exploring the nuances of complex architectures or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
-                </p>
-
-                <div className="flex justify-center">
-                  <div className="relative h-[250px] w-full max-w-sm grayscale hover:grayscale-0 transition-all duration-700 sm:h-[350px]" style={{ maskImage: "radial-gradient(circle, black 40%, transparent 95%)", WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 95%)" }}>
-                    <Image
-                      src="/casual.png"
-                      alt="Casual photo"
-                      fill
-                      className="object-contain object-center"
-                    />
+              <div className="space-y-8">
+                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
+                  <div className="mb-1">
+                    <a
+                      href="https://drive.google.com/file/d/1cTszy0XvMCLTO4-PkWh3T_Qqlz8QCgYo/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
+                    >
+                      NPTEL Data Mining
+                    </a>
                   </div>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                    IIT, Kharagpur
+                  </p>
                 </div>
-
-                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  I believe that the best products are built by people who have a diverse range of interests. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
-                </p>
+                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
+                  <div className="mb-1">
+                    <a
+                      href="https://drive.google.com/file/d/1M90GAeOA3QlYiW9YzRdwTyP3NA1k7mxX/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors"
+                    >
+                      Bootcamp on Big Data &amp; Data Science
+                    </a>
+                  </div>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                    CDAC, Noida
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -616,7 +430,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 dark:text-gray-400">
                   Connect with me on{" "}
                   <a
-                    href="https://www.linkedin.com/in/aditya-patil-260a631b2/"
+                    href="https://www.linkedin.com/in/shar-mayank/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
@@ -625,7 +439,7 @@ export default function Home() {
                   </a>{" "}
                   or{" "} shoot an {" "}
                   <a
-                    href="mailto:adityapatil24680@gmail.com"
+                    href="mailto:sharmayank1608@gmail.com"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                   >
                     email
@@ -633,11 +447,6 @@ export default function Home() {
                 </p>
               </div>
             </div>
-
-            {/* Pomodoro Timer Section */}
-            <PomodoroTimer />
-
-
 
           </motion.main>
         )}
@@ -666,16 +475,18 @@ export default function Home() {
             </div>
           </button>
         </div>
-        <button
-          onClick={() => setShowQR(true)}
+        <a
+          href="https://drive.google.com/file/d/1QWXviTixZHIa0lVxUtyuG1q5C9jLAHZr/view"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
-          aria-label="Show QR Code"
+          aria-label="Resume"
         >
-          <QrCode className="h-5 w-5" />
-        </button>
+          <FileText className="h-5 w-5" />
+        </a>
         <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
         <a
-          href="https://github.com/PythonHacker24"
+          href="https://github.com/shar-mayank"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -683,7 +494,7 @@ export default function Home() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="https://www.linkedin.com/in/aditya-patil-260a631b2/"
+          href="https://www.linkedin.com/in/shar-mayank/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -691,7 +502,7 @@ export default function Home() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="https://x.com/firecaffeine"
+          href="https://x.com/sharmayank16"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -699,62 +510,24 @@ export default function Home() {
           <FaXTwitter className="h-5 w-5" />
         </a>
         <a
-          href="https://youtube.com/@theracecondition"
+          href="https://huggingface.co/sharmayank"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
-          <Youtube className="h-5 w-5" />
+          <SiHuggingface className="h-5 w-5" />
         </a>
         <a
-          href="https://discord.gg/ry4YCJaShK"
+          href="https://open.spotify.com/user/31nnp65x2sxb2pctdl574jxc2lte?si=c65340a35e574601"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
-          <DiscordIcon className="h-5 w-5" />
-        </a>
-        <a
-          href="https://cal.com/adi-patil/30min"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
-        >
-          <Calendar className="h-5 w-5" />
+          <FaSpotify className="h-5 w-5" />
         </a>
       </nav>
 
-      {/* QR Code Modal */}
-      {
-        showQR && (
-          <div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 dark:bg-white/5 backdrop-blur-sm"
-            onClick={() => setShowQR(false)}
-          >
-            <div
-              className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-8 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowQR(false)}
-                className="absolute -right-3 -top-3 rounded-full bg-black dark:bg-white p-2 text-white dark:text-black transition-transform hover:scale-110"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <div className="rounded-lg bg-white p-2">
-                <QRCodeSVG
-                  value="https://www.justaditya.com/"
-                  size={200}
-                  level="H"
-                  includeMargin={false}
-                />
-              </div>
-            </div>
-          </div>
-        )
-      }
+
     </div >
   );
 }
-

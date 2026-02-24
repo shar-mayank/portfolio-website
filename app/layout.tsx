@@ -10,7 +10,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Aditya Patil",
+  title: "Mayank Sharma",
   description: "All about me",
 };
 
