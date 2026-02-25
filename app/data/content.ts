@@ -107,6 +107,7 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/shar-mayank/) or shoot
 ---
 
 **Links:**
+- Resume: [https://drive.google.com/file/d/1nLnQkV-dYDHt1wh5eSvsbN4YSe2MXg6S/view](https://drive.google.com/file/d/1nLnQkV-dYDHt1wh5eSvsbN4YSe2MXg6S/view)
 - GitHub: [https://github.com/shar-mayank](https://github.com/shar-mayank)
 - LinkedIn: [https://www.linkedin.com/in/shar-mayank/](https://www.linkedin.com/in/shar-mayank/)
 - Twitter: [https://x.com/sharmayank16](https://x.com/sharmayank16)
