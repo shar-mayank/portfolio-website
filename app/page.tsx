@@ -202,7 +202,7 @@ export default function Home() {
                   <div className="space-y-2">
                     <p>Co-Founded an AI Home Automation company, successfully shipping v1.0 of the product in a month and acquired 50+ beta testers.</p>
                     <p>Developed high-end home automation solution, integrating AI agent with Smart TV, Fire Stick, Apple CarPlay and switch board integrations.</p>
-                    <p>Currently white-labeling the home automation tech to other players.</p>
+                    <p>White-labeling the home automation tech to other players.</p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {["AI", "IoT", "Home Automation", "Startup"].map((tag) => (
                         <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
@@ -288,7 +288,10 @@ export default function Home() {
                   link="https://github.com/shar-mayank/RAG-based-Chat-Assistant"
                 >
                   <div className="space-y-2">
-                    <p>Built a RAG pipeline for semantic QA over PDFs using LangChain, FAISS, and Ollama (Gemma 3). Implemented document parsing, OCR fallback, and recursive chunking for embeddings.</p>
+                    <p>Architected a local-first RAG chat assistant using LangChain, FAISS, and Ollama (Gemma 3) to process internal PDFs, ensuring 100% data privacy by executing all LLM inference and vector embeddings strictly on-device.</p>
+                    <p>Engineered a 3-tier document ingestion pipeline integrating PyMuPDF, PyPDF, and Tesseract OCR to handle diverse document formats, enabling automated extraction fallbacks for scanned images and eliminating unreadable file errors.</p>
+                    <p>Deployed an OpenAI-compatible REST API via FastAPI and built a custom Open WebUI Pipe function to bridge backend operations with a browser interface, allowing users to execute live file uploads and stream token-by-token responses.</p>
+                    <p>Optimized query performance by implementing Jaccard similarity conversational caching and Watchdog folder monitoring to prevent redundant model executions, significantly reducing response latency and enabling automated, real-time document indexing.</p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {["Python", "LangChain", "FastAPI", "FAISS", "PostgreSQL", "Ollama"].map((tag) => (
                         <span key={tag} className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-full border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
@@ -452,7 +455,7 @@ export default function Home() {
           </button>
         </div>
         <a
-          href="https://drive.google.com/file/d/1QWXviTixZHIa0lVxUtyuG1q5C9jLAHZr/view"
+          href="https://drive.google.com/file/d/1nLnQkV-dYDHt1wh5eSvsbN4YSe2MXg6S/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
