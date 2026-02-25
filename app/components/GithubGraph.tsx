@@ -15,8 +15,8 @@ export function GithubGraph() {
     if (!mounted) return null;
 
     return (
-        <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
-            <div className="flex min-w-max justify-center text-xs px-4">
+        <div className="w-full overflow-x-auto pb-4 scrollbar-hide [&_text]:selection:!text-black [&_text]:dark:selection:!text-black">
+            <div className="flex min-w-max justify-center text-xs px-4 [&_text]:fill-gray-500 dark:[&_text]:fill-gray-400">
                 <GitHubCalendar
                     username="shar-mayank"
                     colorScheme={theme === "dark" ? "dark" : "light"}

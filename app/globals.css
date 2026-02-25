@@ -46,3 +46,9 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Fix GitHub calendar text selection readability */
+.react-activity-calendar text::selection {
+  color: black !important;
+  fill: black !important;
+}

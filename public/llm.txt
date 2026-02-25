@@ -63,7 +63,7 @@ Facilitated student presentations and discussions on research ideas.
 
 ## Skills
 
-Python, C, C++, SQL, Bash, YAML, PyTorch, Pandas, NumPy, Matplotlib, Seaborn, Pydantic, FastAPI, Langchain, AWS, Azure, PostgreSQL, MySQL, MongoDB, Git, Large Language Models (LLMs), Model Hosting, Model Training, Fine-tuning, Docker
+Python, C, C++, SQL, Bash, YAML, PyTorch, Pandas, NumPy, Matplotlib, Seaborn, Pydantic, FastAPI, Langchain, AWS, PostgreSQL, MySQL, MongoDB, Git, Large Language Models (LLMs), Model Hosting, Model Training, Fine-tuning, Docker
 
 ## Side Projects
 

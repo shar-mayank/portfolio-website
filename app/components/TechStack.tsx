@@ -38,14 +38,18 @@ const categories = [
         name: "Infra & Tools",
         skills: [
             { name: "Docker", slug: "docker" },
-            { name: "AWS", slug: "amazonwebservices" },
-            { name: "Azure", slug: "microsoftazure" },
+            { name: "AWS", slug: "amazonaws", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
             { name: "Git", slug: "git" },
         ]
     }
 ];
 
-const marqueeSkills = categories.flatMap(c => c.skills);
+type Skill = { name: string; slug: string; iconUrl?: string };
+const marqueeSkills: Skill[] = categories.flatMap(c => c.skills);
+
+function getIconUrl(skill: Skill) {
+    return skill.iconUrl || `https://cdn.simpleicons.org/${skill.slug}`;
+}
 
 export function TechStack() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -78,7 +82,7 @@ export function TechStack() {
                                     <div key={index} className="flex flex-col items-center justify-center gap-2">
                                         <div className="h-10 w-10 transition-all duration-300">
                                             <img
-                                                src={`https://cdn.simpleicons.org/${tech.slug}`}
+                                                src={getIconUrl(tech)}
                                                 alt={tech.name}
                                                 className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100"
                                                 loading="lazy"
@@ -92,7 +96,7 @@ export function TechStack() {
                                     <div key={index + marqueeSkills.length} className="flex flex-col items-center justify-center gap-2">
                                         <div className="h-10 w-10 transition-all duration-300">
                                             <img
-                                                src={`https://cdn.simpleicons.org/${tech.slug}`}
+                                                src={getIconUrl(tech)}
                                                 alt={tech.name}
                                                 className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100"
                                                 loading="lazy"
@@ -126,7 +130,7 @@ export function TechStack() {
                                             >
                                                 <div className="h-5 w-5 shrink-0 transition-all duration-300">
                                                     <img
-                                                        src={`https://cdn.simpleicons.org/${skill.slug}`}
+                                                        src={getIconUrl(skill)}
                                                         alt={skill.name}
                                                         className="h-full w-full object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 brightness-0 group-hover:brightness-100 dark:brightness-0 dark:invert dark:group-hover:invert-0 dark:group-hover:brightness-100"
                                                         loading="lazy"
